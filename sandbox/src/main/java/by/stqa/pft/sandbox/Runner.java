@@ -4,8 +4,8 @@ public class Runner {
 
     public static void main(String[] args) {
 
-        Point p1 = new Point(2, 2);
-        Point p2 = new Point(-2, -2);
+        Point p1 = new Point(1, 0);
+        Point p2 = new Point(3, 0);
         double distMethod = p1.distance(p2);
         System.out.println("Distance between points = " + distMethod + " (calculated in method inside object)");
 
