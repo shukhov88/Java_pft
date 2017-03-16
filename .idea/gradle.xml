@@ -4,9 +4,9 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="createEmptyContentRootDirectories" value="true" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/addressbook-web-tests" />
-        <option name="gradleHome" value="c:/Tools/gradle-3.4.1" />
+        <option name="gradleHome" value="c:/Gradle/gradle-3.4.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/addressbook-web-tests" />
@@ -15,10 +15,9 @@
         <option name="useAutoImport" value="true" />
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="disableWrapperSourceDistributionNotification" value="true" />
-        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/sandbox" />
-        <option name="gradleHome" value="c:/Tools/gradle-3.4.1" />
+        <option name="gradleHome" value="c:/Gradle/gradle-3.4.1" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/sandbox" />
