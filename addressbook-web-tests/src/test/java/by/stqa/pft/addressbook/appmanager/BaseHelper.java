@@ -32,4 +32,8 @@ public class BaseHelper {
             return false;
         }
     }
+
+    public void acceptAlert() {
+        wd.switchTo().alert().accept();
+    }
 }

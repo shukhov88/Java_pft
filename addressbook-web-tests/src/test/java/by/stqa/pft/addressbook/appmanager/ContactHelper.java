@@ -17,7 +17,6 @@ public class ContactHelper extends BaseHelper {
         type(By.name("nickname"), newContactData.getNickName());
         type(By.name("title"), newContactData.getTitle());
         type(By.name("address"), newContactData.getAddress());
-        click(By.name("theform"));
         type(By.name("mobile"), newContactData.getMobilePhone());
         type(By.name("work"), newContactData.getWorkPhone());
         type(By.name("email"), newContactData.getEmail());
@@ -29,5 +28,19 @@ public class ContactHelper extends BaseHelper {
 
     public void submitConatactCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
+    }
+
+    public void selectContact() {
+        if (!wd.findElement(By.name("selected[]")).isSelected()) {
+            click(By.name("selected[]"));
+        }
+    }
+
+    public void submitContactModification() {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    }
+
+    public void deleteSelectedContacts() {
+        click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 }
