@@ -11,6 +11,9 @@ public class NavigationHelper extends BaseHelper {
     }
 
     public void goToGroupPage() {
+        if (isElementPresent(By.name("h1")) && wd.findElement(By.name("h1")).getText().equals("Groups") && isElementPresent(By.name("new"))) {
+            return;
+        }
         click(By.linkText("groups"));
     }
 }

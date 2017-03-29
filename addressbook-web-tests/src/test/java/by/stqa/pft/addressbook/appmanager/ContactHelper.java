@@ -2,8 +2,11 @@ package by.stqa.pft.addressbook.appmanager;
 
 import by.stqa.pft.addressbook.model.NewContactData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 public class ContactHelper extends BaseHelper {
 
@@ -11,19 +14,24 @@ public class ContactHelper extends BaseHelper {
         super(wd);
     }
 
-    public void fillContactForm(NewContactData newContactData) {
+    public void fillContactForm(NewContactData newContactData, boolean creation) {
         type(By.name("firstname"), newContactData.getFirstName());
-        type(By.name("middlename"), newContactData.getMiddleName());
         type(By.name("lastname"), newContactData.getLastName());
-        type(By.name("nickname"), newContactData.getNickName());
-        type(By.name("title"), newContactData.getTitle());
         type(By.name("address"), newContactData.getAddress());
         type(By.name("mobile"), newContactData.getMobilePhone());
-        type(By.name("work"), newContactData.getWorkPhone());
         type(By.name("email"), newContactData.getEmail());
+
+        if (creation) {
+            new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(newContactData.getGroup());
+        } else {
+            Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
 
     public void goToNewContactPage() {
+        if (wd.findElement(By.cssSelector("h1")).getText().equals("Edit / add address book entry")) {
+            return;
+        }
         click(By.linkText("add new"));
     }
 
