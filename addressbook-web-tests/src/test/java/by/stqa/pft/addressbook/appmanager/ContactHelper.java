@@ -35,14 +35,12 @@ public class ContactHelper extends BaseHelper {
         click(By.linkText("add new"));
     }
 
-    public void submitConatactCreation() {
+    public void submitContactCreation() {
         click(By.xpath("//div[@id='content']/form/input[21]"));
     }
 
     public void selectContact() {
-        if (!wd.findElement(By.name("selected[]")).isSelected()) {
-            click(By.name("selected[]"));
-        }
+        click(By.name("selected[]"));
     }
 
     public void submitContactModification() {
@@ -51,5 +49,15 @@ public class ContactHelper extends BaseHelper {
 
     public void deleteSelectedContacts() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    }
+
+    public void createContact(NewContactData contact, boolean group) {
+        goToNewContactPage();
+        fillContactForm(contact, group);
+        submitContactCreation();
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
     }
 }
