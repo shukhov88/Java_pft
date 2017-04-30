@@ -1,32 +1,47 @@
 package by.stqa.pft.addressbook.model;
 
 public class NewContactData {
-    private int id;
-    private final String firstName;
-    private final String lastName;
-    private final String address;
-    private final String mobilePhone;
-    private final String email;
+    private int id = Integer.MAX_VALUE;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private String mobilePhone;
+    private String email;
     private String group;
 
-    public NewContactData(int id, String firstName, String lastName, String address, String mobilePhone, String email, String group) {
+    public NewContactData withId(int id) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.address = address;
-        this.mobilePhone = mobilePhone;
-        this.email = email;
-        this.group = group;
+        return this;
     }
 
-    public NewContactData(String firstName, String lastName, String address, String mobilePhone, String email, String group) {
-        this.id = Integer.MAX_VALUE;
+    public NewContactData withFirstName(String firstName) {
         this.firstName = firstName;
+        return this;
+    }
+
+    public NewContactData withLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public NewContactData withAddress(String address) {
         this.address = address;
+        return this;
+    }
+
+    public NewContactData withMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public NewContactData withEmail(String email) {
         this.email = email;
+        return this;
+    }
+
+    public NewContactData withGroup(String group) {
         this.group = group;
+        return this;
     }
 
     public int getId() {
@@ -75,13 +90,15 @@ public class NewContactData {
 
         NewContactData that = (NewContactData) o;
 
+        if (id != that.id) return false;
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         return lastName != null ? lastName.equals(that.lastName) : that.lastName == null;
     }
 
     @Override
     public int hashCode() {
-        int result = firstName != null ? firstName.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }
