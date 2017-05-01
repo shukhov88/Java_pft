@@ -1,8 +1,8 @@
 package by.stqa.pft.addressbook.tests;
 
 
+import by.stqa.pft.addressbook.model.ContactData;
 import by.stqa.pft.addressbook.model.Contacts;
-import by.stqa.pft.addressbook.model.NewContactData;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,7 +16,7 @@ public class ContactModificationTests extends TestBase {
     public void ensurePreconditions() {
         app.goTo().mainPage();
         if (app.contact().all().size() == 0) {
-            app.contact().create(new NewContactData().withFirstName("t").withLastName("tr").
+            app.contact().create(new ContactData().withFirstName("t").withLastName("tr").
                     withAddress("tre").withMobilePhone("qwe").withEmail("qwert").withGroup("test1"), true);
         }
     }
@@ -24,12 +24,12 @@ public class ContactModificationTests extends TestBase {
     public void testContactModification() {
 
         Contacts before = app.contact().all();
-        NewContactData modifiedContact = before.iterator().next();
-        NewContactData contact = new NewContactData().withId(modifiedContact.getId()).withFirstName("t").withLastName("modified")
+        ContactData modifiedContact = before.iterator().next();
+        ContactData contact = new ContactData().withId(modifiedContact.getId()).withFirstName("t").withLastName("modified")
                 .withAddress("tre").withMobilePhone("qwe").withEmail("qwert");
         app.contact().modify(contact);
+        assertThat(app.contact().count(), equalTo(before.size()));
         Contacts after = app.contact().all();
-        assertEquals(after.size(), before.size());
         assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
     }
 
