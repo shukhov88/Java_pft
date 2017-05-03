@@ -29,9 +29,9 @@ public class ContactExtendedInfoTests extends TestBase {
         //app.goTo().mainPage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromViewForm = app.contact().infoFromViewForm(contact);
-        ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+        ContactData contactInfoFromEditForm = convertContactToMatchViewFormat(app.contact().infoFromEditForm(contact));
 
-        assertThat(cleanedViewInfo(contactInfoFromViewForm.getAllMainInfo()), equalTo(mergeMainInfo(contactInfoFromEditForm)));
+        assertThat(contactInfoFromViewForm.getAllMainInfo(), equalTo(cleanedEditInfo(mergeMainInfo(contactInfoFromEditForm))));
     }
 
     private String mergeMainInfo(ContactData contact) {
@@ -39,16 +39,31 @@ public class ContactExtendedInfoTests extends TestBase {
                 , contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone()
                 , contact.getEmail(), contact.getEmail2(), contact.getEmail3())
                 .stream().filter((s) -> ! s.equals(""))
-                .map(ContactExtendedInfoTests::cleanedEditInfo)
-                .collect(Collectors.joining(""));
+                .collect(Collectors.joining("\n"));
     }
 
-    public static String cleanedEditInfo(String phone) {
-        return phone.replaceAll("\\s", "");
+    public static String cleanedEditInfo(String info) {
+        return info.replaceFirst("\n", " ");
     }
 
-    public static String cleanedViewInfo(String phone) {
-        return phone.replaceAll("\\s", "").replaceAll("\n","")
-                .replaceAll("[:HMW]","");
+    public static ContactData convertContactToMatchViewFormat(ContactData contact) {
+        String homePhone = contact.getHomePhone();
+        String mobilePhone = contact.getMobilePhone();
+        String workPhone = contact.getWorkPhone();
+        String address = contact.getAddress();
+
+        if (!address.equals("")) {
+            address += "\n";
+        }
+        if (!homePhone.equals("")) {
+            homePhone = "H: " + homePhone;
+        }
+        if (!mobilePhone.equals("")) {
+            mobilePhone = "M: " + mobilePhone;
+        }
+        if (!workPhone.equals("")) {
+            workPhone = "W: " + workPhone + "\n";
+        }
+        return contact.withAddress(address).withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);
     }
 }
