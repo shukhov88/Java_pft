@@ -108,6 +108,7 @@ public class ContactHelper extends BaseHelper {
         deleteSelectedContacts();
         contactCache = null;
         acceptAlert();
+        goToMainPage();
     }
 
     private void goToMainPage() {
