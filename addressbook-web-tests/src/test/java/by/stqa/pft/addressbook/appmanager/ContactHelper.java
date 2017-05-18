@@ -75,7 +75,8 @@ public class ContactHelper extends BaseHelper {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
     }
 
-    private void submitAddContactToGroup() {
+    private void submitAddContactToGroup(GroupData group) {
+        new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(group.getName());
         click(By.name("add"));
     }
 
@@ -180,9 +181,9 @@ public class ContactHelper extends BaseHelper {
         return new ContactData().withAllMainInfo(allMainInfo);
     }
 
-    public void addToGroup(ContactData contact) {
+    public void addToGroup(ContactData contact, GroupData group) {
         selectContactById(contact.getId());
-        submitAddContactToGroup();
+        submitAddContactToGroup(group);
     }
 
     public void removeFromGroup(Groups list, ContactInGroupData toDelete) {
@@ -195,7 +196,7 @@ public class ContactHelper extends BaseHelper {
         String groupToSelect = null;
 
         for (GroupData s : list) {
-            if (s.getId() == toDelete.getId()) {
+            if (s.getId() == toDelete.getGroupId()) {
                 groupToSelect = s.getName();
                 break;
             }

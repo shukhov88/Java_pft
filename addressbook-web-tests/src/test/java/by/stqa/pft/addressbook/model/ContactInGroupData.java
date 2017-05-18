@@ -12,16 +12,23 @@ public class ContactInGroupData {
 
     @Id
     @Column(name = "group_id")
-    private int id;
+    private int groupId;
 
-    public int getId() {
-        return id;
+    @Column(name = "id")
+    private int contactId;
+
+    public int getContactId() {
+        return contactId;
+    }
+
+    public int getGroupId() {
+        return groupId;
     }
 
     @Override
     public String toString() {
         return "ContactInGroupData{" +
-                "id=" + id +
+                "groupId=" + groupId +
                 '}';
     }
 
@@ -32,11 +39,21 @@ public class ContactInGroupData {
 
         ContactInGroupData that = (ContactInGroupData) o;
 
-        return id == that.id;
+        return groupId == that.groupId;
     }
 
     @Override
     public int hashCode() {
-        return id;
+        return groupId;
+    }
+
+    public ContactInGroupData withGroupId(int id) {
+        this.groupId = id;
+        return this;
+    }
+
+    public ContactInGroupData withContactId(int id) {
+        this.contactId = id;
+        return this;
     }
 }

@@ -1,10 +1,7 @@
 package by.stqa.pft.addressbook.tests;
 
 
-import by.stqa.pft.addressbook.model.ContactInGroupData;
-import by.stqa.pft.addressbook.model.Contacts;
-import by.stqa.pft.addressbook.model.Groups;
-import by.stqa.pft.addressbook.model.ListOfContactsInGroup;
+import by.stqa.pft.addressbook.model.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -14,9 +11,20 @@ public class DeleteContactFromGroup extends TestBase{
 
     @BeforeMethod
     public void ensurePreconditions() {
+        if (app.db().contacts().size() == 0) {
+            app.goTo().mainPage();
+            app.contact().create(new ContactData().withFirstName("t").withLastName("tr").
+                    withAddress("tre").withMobilePhone("qwe").withEmail("qwert"));
+        }
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            app.group().create(new GroupData().withName("test1"));
+            app.goTo().mainPage();
+        }
         if (app.db().groupsWithContact().size() == 0) {
-            Contacts before = app.db().contacts();
-            app.contact().addToGroup(before.iterator().next());
+            Contacts contacts = app.db().contacts();
+            Groups groups = app.db().groups();
+            app.contact().addToGroup(contacts.iterator().next(), groups.iterator().next());
             app.goTo().mainPage();
         }
     }
@@ -29,8 +37,6 @@ public class DeleteContactFromGroup extends TestBase{
         app.contact().removeFromGroup(list, toDelete);
         ListOfContactsInGroup after = app.db().groupsWithContact();
 
-        assertThat(after, equalTo(before));
-        System.out.println("after: " + after);
-        System.out.println("before: " + before);
+        assertThat(after, equalTo(before.without(toDelete)));
     }
 }
