@@ -12,14 +12,14 @@ import static org.testng.Assert.assertEquals;
 
 public class ContactModificationTests extends TestBase {
 
-    @BeforeMethod
+    /*@BeforeMethod
     public void ensurePreconditions() {
         if (app.db().contacts().size() == 0) {
             app.goTo().mainPage();
             app.contact().create(new ContactData().withFirstName("t").withLastName("tr").
                     withAddress("tre").withMobilePhone("qwe").withEmail("qwert").withGroup("test1"), true);
         }
-    }
+    }*/
     @Test
     public void testContactModification() {
 

@@ -1,13 +1,10 @@
 package by.stqa.pft.addressbook.appmanager;
 
-import by.stqa.pft.addressbook.model.ContactData;
-import by.stqa.pft.addressbook.model.Contacts;
-import by.stqa.pft.addressbook.tests.ContactDeletionTests;
+import by.stqa.pft.addressbook.model.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
 import java.util.List;
 
@@ -28,11 +25,11 @@ public class ContactHelper extends BaseHelper {
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
 
-        if (creation) {
+        /*if (creation) {
             new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
-        }
+        }*/
     }
 
     public void fillContactForm(ContactData contactData) {
@@ -76,6 +73,18 @@ public class ContactHelper extends BaseHelper {
 
     public void deleteSelectedContacts() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
+    }
+
+    private void submitAddContactToGroup() {
+        click(By.name("add"));
+    }
+
+    private void submitRemoveContactFromGroup() {
+        click(By.name("remove"));
+    }
+
+    private void selectContact() {
+        click(By.name("selected[]"));
     }
 
     public void create(ContactData contact, boolean group) {
@@ -169,5 +178,28 @@ public class ContactHelper extends BaseHelper {
         String allMainInfo = wd.findElement(By.cssSelector("div#content")).getText();
         goToMainPage();
         return new ContactData().withAllMainInfo(allMainInfo);
+    }
+
+    public void addToGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        submitAddContactToGroup();
+    }
+
+    public void removeFromGroup(Groups list, ContactInGroupData toDelete) {
+        selectGroup(list, toDelete);
+        selectContact();
+        submitRemoveContactFromGroup();
+    }
+
+    private void selectGroup(Groups list, ContactInGroupData toDelete) {
+        String groupToSelect = null;
+
+        for (GroupData s : list) {
+            if (s.getId() == toDelete.getId()) {
+                groupToSelect = s.getName();
+                break;
+            }
+        }
+        new Select(wd.findElement(By.name("group"))).selectByVisibleText(groupToSelect);
     }
 }
