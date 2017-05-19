@@ -30,12 +30,22 @@ public class DeleteContactFromGroup extends TestBase{
     }
 
     @Test
-    public void testDeleteContactFromGroup() {
+    public void testDeleteContactFromGroup() throws InterruptedException {
         Groups list = app.db().groups();
         ListOfContactsInGroup before = app.db().groupsWithContact();
         ContactInGroupData toDelete = before.iterator().next();
         app.contact().removeFromGroup(list, toDelete);
+
+        //Если запустить тест без sleep(), то ассерт упадет.
+        //Похоже на то, что привязка контакта к группе в БД удаляется медленнее, чем приходит запрос на получение списка after.
+        //То есть на момент запросв списка after контакт из группы в БД еще не удален.
+        //На домашнем компе (там не иксамп, а руками развернутый локал сервер) такой проблемы нет...
+        //Как эту проблему можно решить правильнее?
+        Thread.sleep(500);
         ListOfContactsInGroup after = app.db().groupsWithContact();
+
+        System.out.println("before: " + before.without(toDelete));
+        System.out.println("after: " + after);
 
         assertThat(after, equalTo(before.without(toDelete)));
     }
