@@ -2,7 +2,6 @@ package by.stqa.pft.mantis.appmanager;
 
 
 import by.stqa.pft.mantis.model.UserData;
-import by.stqa.pft.mantis.model.Users;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;

@@ -23,6 +23,7 @@ public class ApplicationManager {
     private AdminHelper admin;
     private NavigationHelper navigationHelper;
     private DbHelper dbHelper;
+    private SoapHelper soapHelper;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -32,7 +33,6 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File("src/test/resources/" + target + ".properties")));
-        dbHelper = new DbHelper();
     }
 
     public void stop() {
@@ -100,6 +100,16 @@ public class ApplicationManager {
     }
 
     public DbHelper db() {
+        if (dbHelper == null) {
+            dbHelper = new DbHelper();
+        }
         return dbHelper;
+    }
+
+    public SoapHelper soap() {
+        if (soapHelper == null) {
+            soapHelper = new SoapHelper(this);
+        }
+        return soapHelper;
     }
 }
