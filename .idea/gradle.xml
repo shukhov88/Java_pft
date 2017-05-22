@@ -27,6 +27,19 @@
         <option name="createEmptyContentRootDirectories" value="true" />
         <option name="disableWrapperSourceDistributionNotification" value="true" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/bugify-tests" />
+        <option name="gradleHome" value="c:/Gradle/gradle-3.4.1" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/bugify-tests" />
+          </set>
+        </option>
+        <option name="useAutoImport" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="createEmptyContentRootDirectories" value="true" />
+        <option name="disableWrapperSourceDistributionNotification" value="true" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$/mantis-tests" />
         <option name="gradleHome" value="C:/Gradle/gradle-3.5" />
         <option name="modules">
