@@ -27,7 +27,7 @@ public class DistanceTest {
         Point a = new Point(5, 0);
         Point b = new Point(10, 0);
 
-        Assert.assertEquals(Runner.distance(a, b), 5.0);
+        Assert.assertEquals(Runner.distance(a, b), 6.0);
     }
 
     @Test
