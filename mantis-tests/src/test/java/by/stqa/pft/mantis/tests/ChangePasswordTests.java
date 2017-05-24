@@ -21,6 +21,7 @@ public class ChangePasswordTests extends TestBase {
         app.mail().start();
     }
 
+
     @Test
     public void testChangePasswordTests() throws IOException, MessagingException {
         UserData userToChangePassword = app.db().users().iterator().next();
